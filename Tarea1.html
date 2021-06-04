@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="Styles.css">
+</head>
+
+<body>
+
+    <div class="box">
+        <h1><strong>Identificacion</strong></p>
+            <input class="TopBox" type="text" id="txtCedula" name="txtCedula">
+            <!--BootstrapButton-->
+            <button onclick="myFunction()" class="btn btn-dark">Consultar</button>
+            </br>
+            <label for="Nombre">Nombre</label>
+            <input type="text" id="Nombre" name="Nombre" disabled><br><br>
+            <label for="Moroso">Moroso</label>
+            <input type="text" id="Moroso" name="Moroso" disabled><br><br>
+            <label for="Descripcion">Descripcion</label>
+            <input type="text" id="Descripcion" name="Descripcion" disabled><br><br>
+    </div>
+
+</body>
+
+<script>
+
+    function myFunction() {
+        var cedula = document.getElementById("txtCedula").value;
+        var haciendaAPI = "https://api.hacienda.go.cr/fe/ae?identificacion=" + cedula;
+
+        //API Hacienda
+        var request = new XMLHttpRequest();
+        request.open('GET', haciendaAPI);
+        request.onload = function () {
+            var jsonResponse = JSON.parse(request.responseText);
+            console.log(jsonResponse);
+
+            var nombre = jsonResponse.nombre;
+            document.getElementById("Nombre").value = nombre;
+
+            var moroso = jsonResponse.situacion.moroso;
+            document.getElementById("Moroso").value = moroso;
+                        
+            if (jsonResponse.actividades.length == 0) {
+                document.getElementById("Descripcion").value = "SIN DESCRIPCION";
+            }
+            else {
+                var descripcion = jsonResponse.actividades[0].descripcion;
+                document.getElementById("Descripcion").value = descripcion;
+            }
+        };
+        request.send();
+    }
+</script>
+
+</html>

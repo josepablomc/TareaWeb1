@@ -1,0 +1,32 @@
+body {
+}
+label {
+    width: 500px;
+    margin-left: 5%
+}
+input {
+    width: 800px;
+    margin-left: 5%
+}
+h1{
+    margin-left: 5%
+}
+.box{
+    background: #F7F7F7;
+    width: 1000px;
+    margin-left: 20%;
+    margin-top: 5%;
+    border-width: 3px;
+    border-color: gray;
+    border-style: solid;
+
+}
+.TopBox{
+    width: 500px;
+    margin-left: 5%;
+}
+
+button{
+    margin-left: 9%;
+    width: 200px;
+}
